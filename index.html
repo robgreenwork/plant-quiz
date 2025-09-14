@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Plant Quiz Game</title>
+  <title>RHS course - week 1 plants</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -57,18 +57,18 @@
 </head>
 <body>
 
-<h1>Plant Quiz</h1>
+<h1>RHS course - week 1 plants</h1>
 
 <div class="card">
   <img id="plant-image" src="" alt="Plant Image">
-  <div id="plant-name"></div>
-  <input id="answer" type="text" placeholder="Type your answer here">
+  <div id="plant-fields">
+    <input id="common-answer" type="text" placeholder="Type the common name">
+    <br>
+    <input id="latin-answer" type="text" placeholder="Type the latin name">
+  </div>
   <p id="feedback"></p>
-  <button onclick="checkAnswer()">Check</button>
+  <button onclick="checkAnswer()">Enter Answer</button>
   <button onclick="nextPlant()">Next</button>
-  <br><br>
-  <button onclick="setMode('picture')">Picture Mode</button>
-  <button onclick="setMode('spelling')">Spelling Mode</button>
 </div>
 
 <script>
@@ -86,23 +86,13 @@
   ];
 
   let currentIndex = 0;
-  let mode = "picture"; // "picture" or "spelling"
 
   function showPlant() {
     const plant = plants[currentIndex];
-  document.getElementById("answer").value = "";
-  document.getElementById("feedback").textContent = "";
-  document.getElementById("answer").placeholder = mode === "spelling" ? "Type the latin name" : "Type your answer here";
-
-    if (mode === "picture") {
-      document.getElementById("plant-image").src = plant.image;
-      document.getElementById("plant-image").style.display = "block";
-      document.getElementById("plant-name").style.display = "none";
-    } else {
-      document.getElementById("plant-image").style.display = "none";
-      document.getElementById("plant-name").textContent = plant.common;
-      document.getElementById("plant-name").style.display = "block";
-    }
+    document.getElementById("common-answer").value = "";
+    document.getElementById("latin-answer").value = "";
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("plant-image").src = plant.image;
   }
 
   function normalise(text) {
@@ -111,25 +101,32 @@
 
   function checkAnswer() {
     const plant = plants[currentIndex];
-    const userAnswer = normalise(document.getElementById("answer").value);
-    const correctAnswer = normalise(mode === "spelling" ? plant.latin : plant.common);
+    const userCommon = normalise(document.getElementById("common-answer").value);
+    const userLatin = normalise(document.getElementById("latin-answer").value);
+    const correctCommon = normalise(plant.common);
+    const correctLatin = normalise(plant.latin);
 
-    if (userAnswer === correctAnswer) {
-      document.getElementById("feedback").textContent = "✅ Correct!";
-      document.getElementById("feedback").style.color = "green";
+    let feedback = "";
+    let color = "";
+    if (userCommon === correctCommon && userLatin === correctLatin) {
+      feedback = "✅ Both correct!";
+      color = "green";
     } else {
-      document.getElementById("feedback").textContent = `❌ Oops! It was: ${mode === "spelling" ? plant.latin : plant.common}`;
-      document.getElementById("feedback").style.color = "red";
+      feedback = "❌ Oops!";
+      if (userCommon !== correctCommon) {
+        feedback += ` Common name: ${plant.common}.`;
+      }
+      if (userLatin !== correctLatin) {
+        feedback += ` Latin name: ${plant.latin}.`;
+      }
+      color = "red";
     }
+    document.getElementById("feedback").textContent = feedback;
+    document.getElementById("feedback").style.color = color;
   }
 
   function nextPlant() {
     currentIndex = (currentIndex + 1) % plants.length;
-    showPlant();
-  }
-
-  function setMode(newMode) {
-    mode = newMode;
     showPlant();
   }
 

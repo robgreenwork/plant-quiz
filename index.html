@@ -9,49 +9,72 @@
       text-align: center;
       background: #f7f7f7;
       margin: 0;
-      padding: 20px;
+      padding: 10px;
     }
     .card {
       background: white;
       border-radius: 8px;
-      padding: 20px;
-      max-width: 450px;
+      padding: 16px;
+      max-width: 98vw;
+      width: 100%;
       margin: 0 auto;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     img {
       max-width: 100%;
+      height: auto;
       border-radius: 8px;
       display: block;
-      margin: 0 auto 10px;
+      margin: 0 auto 12px;
     }
     input {
-      padding: 10px;
-      font-size: 16px;
-      width: 90%;
-      margin-top: 10px;
+      padding: 14px;
+      font-size: 18px;
+      width: 98%;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
     }
     button {
-      margin: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
+      margin: 8px 0;
+      padding: 16px 0;
+      width: 98%;
+      font-size: 20px;
       border: none;
       background: #4CAF50;
       color: white;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      box-sizing: border-box;
+      transition: background 0.2s;
     }
-    button:hover {
+    button:active, button:focus {
       background: #45a049;
+      outline: none;
     }
     #feedback {
-      margin-top: 10px;
+      margin-top: 14px;
       font-weight: bold;
+      font-size: 18px;
     }
     #plant-name {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 12px 0;
+    }
+    @media (max-width: 600px) {
+      .card {
+        padding: 8px;
+      }
+      input, button {
+        font-size: 18px;
+        padding: 12px 0;
+      }
+      h1 {
+        font-size: 1.3em;
+      }
     }
   </style>
 </head>

@@ -4,6 +4,37 @@
   <meta charset="UTF-8">
   <title>RHS course - week 1 plants</title>
   <style>
+    .tabs-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      background: #e0e0e0;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      font-size: 1.1em;
+      font-weight: 600;
+      padding: 12px 0;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background: #f7f7f7;
+      color: #333;
+      border-bottom: 3px solid #ccc;
+      transition: background 0.2s, border-bottom 0.2s, color 0.2s;
+    }
+    .tab-btn.active {
+  background: #4CAF50;
+  color: #111;
+  border-bottom: 3px solid #388e3c;
+  z-index: 1;
+    }
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -81,9 +112,9 @@
 <body>
 
 
-<div id="tabs" style="display: flex; justify-content: center; margin-bottom: 16px;">
-  <button id="tab-week1" onclick="switchWeek(1)" style="flex:1; font-weight:bold; border-bottom:2px solid #4CAF50; background:#e8f5e9;">Week 1</button>
-  <button id="tab-week2" onclick="switchWeek(2)" style="flex:1; font-weight:normal; border-bottom:2px solid #ccc; background:#f7f7f7;">Week 2</button>
+<div class="tabs-container">
+  <button id="tab-week1" class="tab-btn active" onclick="switchWeek(1)">Week 1</button>
+  <button id="tab-week2" class="tab-btn" onclick="switchWeek(2)">Week 2</button>
 </div>
 <h1 id="quiz-title">RHS course - week 1 plants</h1>
 
@@ -150,12 +181,8 @@
     document.getElementById("feedback").textContent = "";
     document.getElementById("plant-image").src = plant.image;
     document.getElementById("quiz-title").textContent = `RHS course - week ${currentWeek} plants`;
-    document.getElementById("tab-week1").style.fontWeight = currentWeek === 1 ? "bold" : "normal";
-    document.getElementById("tab-week1").style.borderBottom = currentWeek === 1 ? "2px solid #4CAF50" : "2px solid #ccc";
-    document.getElementById("tab-week1").style.background = currentWeek === 1 ? "#e8f5e9" : "#f7f7f7";
-    document.getElementById("tab-week2").style.fontWeight = currentWeek === 2 ? "bold" : "normal";
-    document.getElementById("tab-week2").style.borderBottom = currentWeek === 2 ? "2px solid #4CAF50" : "2px solid #ccc";
-    document.getElementById("tab-week2").style.background = currentWeek === 2 ? "#e8f5e9" : "#f7f7f7";
+  document.getElementById("tab-week1").classList.toggle("active", currentWeek === 1);
+  document.getElementById("tab-week2").classList.toggle("active", currentWeek === 2);
   }
 
   function switchWeek(week) {

@@ -5,21 +5,102 @@
   <title>RHS course - week 2 plants</title>
   <!-- ...existing style... -->
   <style>
-    /* ...existing CSS from index.html... */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 10px;
+    }
+    .nav-link {
+      display: block;
+      margin: 24px auto 0 auto;
+      font-size: 1.1em;
+      color: #388e3c;
+      text-decoration: none;
+      font-weight: bold;
+      width: fit-content;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px 16px 20px 16px;
+      max-width: 480px;
+      margin: 32px auto 0 auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    input {
+      padding: 14px;
+      font-size: 18px;
+      width: 95%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #bbb;
+      box-sizing: border-box;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button {
+      margin: 10px 0 0 0;
+      padding: 14px 0;
+      width: 48%;
+      font-size: 18px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: background 0.2s;
+      font-weight: 600;
+    }
+    button:active, button:focus {
+      background: #388e3c;
+      outline: none;
+    }
+    #feedback {
+      margin-top: 16px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    @media (max-width: 600px) {
+      .card {
+        padding: 10px 2px 12px 2px;
+        max-width: 99vw;
+      }
+      input, button {
+        font-size: 16px;
+        padding: 10px 0;
+      }
+      img {
+        margin-bottom: 10px;
+      }
+    }
   </style>
 </head>
 <body>
-<a href="week1.html">Go to Week 1 Quiz</a>
+<a href="week1.html" class="nav-link">← Go to Week 1 Quiz</a>
 <div class="card">
   <img id="plant-image" src="" alt="Plant Image">
-  <div id="plant-fields">
-    <input id="common-answer" type="text" placeholder="Type the common name">
-    <br>
-    <input id="latin-answer" type="text" placeholder="Type the latin name">
+  <input id="common-answer" type="text" placeholder="Type the common name">
+  <input id="latin-answer" type="text" placeholder="Type the latin name">
+  <div style="display: flex; gap: 4%; justify-content: center;">
+    <button onclick="checkAnswer()">Enter Answer</button>
+    <button onclick="nextPlant()">Next</button>
   </div>
   <p id="feedback"></p>
-  <button onclick="checkAnswer()">Enter Answer</button>
-  <button onclick="nextPlant()">Next</button>
 </div>
 <script>
   const week2Plants = [

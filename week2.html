@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RHS course - week 2 plants</title>
+  <!-- ...existing style... -->
+  <style>
+    /* ...existing CSS from index.html... */
+  </style>
+</head>
+<body>
+<a href="week1.html">Go to Week 1 Quiz</a>
+<div class="card">
+  <img id="plant-image" src="" alt="Plant Image">
+  <div id="plant-fields">
+    <input id="common-answer" type="text" placeholder="Type the common name">
+    <br>
+    <input id="latin-answer" type="text" placeholder="Type the latin name">
+  </div>
+  <p id="feedback"></p>
+  <button onclick="checkAnswer()">Enter Answer</button>
+  <button onclick="nextPlant()">Next</button>
+</div>
+<script>
+  const week2Plants = [
+    { latin: "Stellaria media", common: "Chickweed", image: "https://apps.rhs.org.uk/plantselectorimages/detail/RHS_WSYD0012466_11855.JPG" },
+    { latin: "Taraxacum officinale", common: "Dandelion", image: "https://images.immediate.co.uk/production/volatile/sites/10/2018/02/61078405-281c-4a49-8d1e-2e445fe64960-378bd75.jpg" },
+    { latin: "Senecio vulgaris", common: "Groundsel", image: "https://apps.rhs.org.uk/plantselectorimages/detail/ADV0001157.jpg" },
+    { latin: "Cardamine hirsuta", common: "Hairy bittercress", image: "https://apps.rhs.org.uk/plantselectorimages/detail/JFCardaminehirsuta5.JPG" },
+    { latin: "Galium aparine", common: "Cleavers / Sticky willy", image: "https://apps.rhs.org.uk/plantselectorimages/detail/RHS_WSYD0012505_11856.JPG" },
+    { latin: "Sagina procumbens", common: "Procumbent pearlwort", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sagina_procumbens_2005.05.08_12.49.10-p5080008.jpg/500px-Sagina_procumbens_2005.05.08_12.49.10-p5080008.jpg" },
+    { latin: "Reynoutria japonica", common: "Japanese knotweed", image: "https://plantsam.com/wp-content/uploads/2021/11/Fallopia-japonica-1.jpg" },
+    { latin: "Elymus repens", common: "Couch grass", image: "https://www.rhs.org.uk/getmedia/974fc023-114e-4384-9ed0-08388401f05e/elymus-repens-plant.jpg?width=940&height=940&ext=.jpg?width=700" },
+    { latin: "Calystegia sepium", common: "Hedge bindweed", image: "https://plantsam.com/wp-content/uploads/2021/12/Calystegia-sepium-8.jpg" },
+    { latin: "Rubus fruticosus", common: "Bramble / Blackberry", image: "https://apps.rhs.org.uk/plantselectorimages/detail/WSY0035863.jpg" }
+  ];
+  let plants = week2Plants;
+  let currentIndex = 0;
+  function showPlant() {
+    const plant = plants[currentIndex];
+    document.getElementById("common-answer").value = "";
+    document.getElementById("latin-answer").value = "";
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("plant-image").src = plant.image;
+  }
+  function normalise(text) {
+    return text.trim().toLowerCase().replace(/[^a-z]/g,"");
+  }
+  function checkAnswer() {
+    const plant = plants[currentIndex];
+    const userCommon = normalise(document.getElementById("common-answer").value);
+    const userLatin = normalise(document.getElementById("latin-answer").value);
+    const correctCommon = normalise(plant.common);
+    const correctLatin = normalise(plant.latin);
+    let feedback = "";
+    let color = "";
+    if (userCommon === correctCommon && userLatin === correctLatin) {
+      feedback = "✅ Both correct!";
+      color = "green";
+    } else {
+      feedback = "❌ Oops!";
+      if (userCommon !== correctCommon) {
+        feedback += ` Common name: ${plant.common}.`;
+      }
+      if (userLatin !== correctLatin) {
+        feedback += ` Latin name: ${plant.latin}.`;
+      }
+      color = "red";
+    }
+    document.getElementById("feedback").textContent = feedback;
+    document.getElementById("feedback").style.color = color;
+  }
+  function nextPlant() {
+    currentIndex = (currentIndex + 1) % plants.length;
+    showPlant();
+  }
+  showPlant();
+</script>
+</body>
+</html>
